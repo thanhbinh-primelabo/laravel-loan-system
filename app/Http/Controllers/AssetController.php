@@ -101,10 +101,12 @@ class AssetController extends Controller
                     Flash::warning(trans('general.validation_error'));
                     return redirect()->back()->withInput()->withErrors($validator);
                 } else {
-                    $fname = "asset_" . uniqid() .'.'. $key->guessExtension();
+                    $fname = "asset_" . uniqid() . '.' . $key->guessExtension();
                     $files[$count] = $fname;
-                    $key->move(public_path() . '/uploads',
-                        $fname);
+                    $key->move(
+                        public_path() . '/uploads',
+                        $fname
+                    );
                 }
                 $count++;
             }
@@ -123,7 +125,6 @@ class AssetController extends Controller
                 $valuation->amount = $request->asset_management_current_value[$i];
                 $valuation->save();
             }
-
         }
         $custom_fields = CustomField::where('category', 'assets')->get();
         foreach ($custom_fields as $key) {
@@ -201,23 +202,27 @@ class AssetController extends Controller
                     Flash::warning(trans('general.validation_error'));
                     return redirect()->back()->withInput()->withErrors($validator);
                 } else {
-                    $fname = "asset_" . uniqid() .'.'. $key->guessExtension();
+                    $fname = "asset_" . uniqid() . '.' . $key->guessExtension();
                     $files[$count] = $fname;
-                    $key->move(public_path() . '/uploads',
-                        $fname);
+                    $key->move(
+                        public_path() . '/uploads',
+                        $fname
+                    );
                 }
-
             }
         }
         $asset->files = serialize($files);
         $asset->save();
         $custom_fields = CustomField::where('category', 'assets')->get();
         foreach ($custom_fields as $key) {
-            if (!empty(CustomFieldMeta::where('custom_field_id', $key->id)->where('parent_id', $id)->where('category',
-                'assets')->first())
-            ) {
-                $custom_field = CustomFieldMeta::where('custom_field_id', $key->id)->where('parent_id',
-                    $id)->where('category', 'assets')->first();
+            if (!empty(CustomFieldMeta::where('custom_field_id', $key->id)->where('parent_id', $id)->where(
+                'category',
+                'assets'
+            )->first())) {
+                $custom_field = CustomFieldMeta::where('custom_field_id', $key->id)->where(
+                    'parent_id',
+                    $id
+                )->where('category', 'assets')->first();
             } else {
                 $custom_field = new CustomFieldMeta();
             }
@@ -241,7 +246,6 @@ class AssetController extends Controller
                 $valuation->amount = $request->asset_management_current_value[$i];
                 $valuation->save();
             }
-
         }
         GeneralHelper::audit_trail("Updated asset  with id:" . $asset->id);
         Flash::success(trans('general.successfully_saved'));
@@ -281,8 +285,7 @@ class AssetController extends Controller
      */
     public function createType()
     {
-
-        return view('asset.type.create', compact(''));
+        return view('asset.type.create');
     }
 
     /**
@@ -338,7 +341,5 @@ class AssetController extends Controller
         $files = array_except($files, [$request->id]);
         $asset->files = serialize($files);
         $asset->save();
-
-
     }
 }

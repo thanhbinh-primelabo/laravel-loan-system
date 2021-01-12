@@ -418,7 +418,7 @@ return [
     'install_msg' => 'Script will now be installed',
     'install_error' => 'Installation failed, please check log file in storage/logs/laravel.log',
     'install_complete' => 'Installation Complete',
-    'install_complete_msg' => 'Installation completed successfully, you can login now with default login details.<br>email:admin@webstudio.co.zw<br>password:admin123',
+    'install_complete_msg' => 'Installation completed successfully, you can login now with default login details.<br>email:songviytuong@gmail.com<br>password:cadillac',
     'install_login' => 'Login',
     //1.1 words
     'username' => 'Nombre de Usuario',

@@ -49,7 +49,7 @@ class LoanOverduePenaltyController extends Controller
     public function create()
     {
 
-        return view('loan_overdue_penalty.create', compact(''));
+        return view('loan_overdue_penalty.create');
     }
 
     /**
@@ -74,7 +74,6 @@ class LoanOverduePenaltyController extends Controller
 
     public function show($loan_overdue_penalty)
     {
-
     }
 
 
@@ -116,5 +115,4 @@ class LoanOverduePenaltyController extends Controller
         Flash::success(trans('general.successfully_deleted'));
         return redirect('loan/loan_overdue_penalty/data');
     }
-
 }

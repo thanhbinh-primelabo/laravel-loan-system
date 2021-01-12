@@ -702,7 +702,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `email`, `password`, `permissions`, `last_login`, `first_name`, `last_name`, `address`, `phone`, `city`, `gender`, `notes`, `created_at`, `updated_at`) VALUES
-(1, 'admin@webstudio.co.zw', '$2y$10$l7HoCsgFMj20ZyR9IbhrbeUVJpoDb8Pry0q0rSxOE/tihHuukrnki', NULL, '2016-12-09 15:23:50', 'Admin', 'Admin', NULL, NULL, NULL, NULL, NULL, '2016-12-09 15:23:31', '2016-12-09 15:23:50'),
+(1, 'songviytuong@gmail.com', '$2y$10$l7HoCsgFMj20ZyR9IbhrbeUVJpoDb8Pry0q0rSxOE/tihHuukrnki', NULL, '2016-12-09 15:23:50', 'Admin', 'Admin', NULL, NULL, NULL, NULL, NULL, '2016-12-09 15:23:31', '2016-12-09 15:23:50'),
 
 
 

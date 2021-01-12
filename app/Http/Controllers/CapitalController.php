@@ -44,9 +44,11 @@ class CapitalController extends Controller
             return redirect('/');
         }
         $data = Capital::where('branch_id', session('branch_id'))->get();
-        $balance = Capital::where('branch_id', session('branch_id'))->where('type', 'deposit')->sum('amount') - Capital::where('branch_id', session('branch_id'))->where('type',
-                'withdrawal')->sum('amount');
-        return view('capital.data', compact('data','balance'));
+        $balance = Capital::where('branch_id', session('branch_id'))->where('type', 'deposit')->sum('amount') - Capital::where('branch_id', session('branch_id'))->where(
+            'type',
+            'withdrawal'
+        )->sum('amount');
+        return view('capital.data', compact('data', 'balance'));
     }
 
     /**
@@ -81,12 +83,12 @@ class CapitalController extends Controller
         foreach (ChartOfAccount::where('account_type', 'asset')->get() as $key) {
             $chart_assets[$key->id] = $key->name;
         }
-        $chart[trans_choice('asset',2)]=$chart_assets;
-        $chart[trans_choice('income',2)]=$chart_income;
-        $chart[trans_choice('liability',2)]=$chart_liability;
-        $chart[trans_choice('equity',2)]=$chart_equity;
-        $chart[trans_choice('expense',2)]=$chart_expenses;
-        return view('capital.create', compact('banks','chart'));
+        $chart[trans_choice('asset', 2)] = $chart_assets;
+        $chart[trans_choice('income', 2)] = $chart_income;
+        $chart[trans_choice('liability', 2)] = $chart_liability;
+        $chart[trans_choice('equity', 2)] = $chart_equity;
+        $chart[trans_choice('expense', 2)] = $chart_expenses;
+        return view('capital.create', compact('banks', 'chart'));
     }
 
     /**
@@ -104,7 +106,7 @@ class CapitalController extends Controller
         $capital = new Capital();
         $capital->user_id = Sentinel::getUser()->id;
         $capital->amount = $request->amount;
-        $capital->branch_id =session('branch_id');
+        $capital->branch_id = session('branch_id');
         $capital->debit_account_id = $request->debit_account_id;
         $capital->credit_account_id = $request->credit_account_id;
         $capital->notes = $request->notes;
@@ -157,7 +159,7 @@ class CapitalController extends Controller
             Flash::warning("Permission Denied");
             return redirect('/');
         }
-        return view('capital.show', compact(''));
+        return view('capital.show');
     }
 
 
@@ -188,12 +190,12 @@ class CapitalController extends Controller
         foreach (ChartOfAccount::where('account_type', 'asset')->get() as $key) {
             $chart_assets[$key->id] = $key->name;
         }
-        $chart[trans_choice('asset',2)]=$chart_assets;
-        $chart[trans_choice('income',2)]=$chart_income;
-        $chart[trans_choice('liability',2)]=$chart_liability;
-        $chart[trans_choice('equity',2)]=$chart_equity;
-        $chart[trans_choice('expense',2)]=$chart_expenses;
-        return view('capital.edit', compact('capital','banks','chart'));
+        $chart[trans_choice('asset', 2)] = $chart_assets;
+        $chart[trans_choice('income', 2)] = $chart_income;
+        $chart[trans_choice('liability', 2)] = $chart_liability;
+        $chart[trans_choice('equity', 2)] = $chart_equity;
+        $chart[trans_choice('expense', 2)] = $chart_expenses;
+        return view('capital.edit', compact('capital', 'banks', 'chart'));
     }
 
     /**
@@ -274,6 +276,4 @@ class CapitalController extends Controller
         Flash::success(trans('general.successfully_deleted'));
         return redirect('capital/data');
     }
-
-
 }

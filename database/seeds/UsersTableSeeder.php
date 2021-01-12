@@ -12,10 +12,10 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         $credentials = array(
-            "email" => 'admin@webstudio.co.zw',
-            "password" => 'admin123',
-            "first_name" => 'Admin',
-            "last_name" => 'Admin',
+            "email" => 'songviytuong@gmail.com',
+            "password" => 'cadillac',
+            "first_name" => 'Master',
+            "last_name" => 'Supper',
         );
         $user = \Cartalyst\Sentinel\Laravel\Facades\Sentinel::registerAndActivate($credentials);
         $role = \Cartalyst\Sentinel\Laravel\Facades\Sentinel::findRoleBySlug('admin');

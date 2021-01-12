@@ -45,7 +45,7 @@ class ChartOfAccountController extends Controller
             Flash::warning("Permission Denied");
             return redirect('/');
         }
-        return view('chart_of_account.create', compact(''));
+        return view('chart_of_account.create');
     }
 
     /**
@@ -76,7 +76,6 @@ class ChartOfAccountController extends Controller
         if ($validator->fails()) {
             Flash::warning(trans('general.validation_error'));
             return redirect()->back()->withInput()->withErrors($validator);
-
         } else {
             $chart_of_account = new ChartOfAccount();
             $chart_of_account->name = $request->name;

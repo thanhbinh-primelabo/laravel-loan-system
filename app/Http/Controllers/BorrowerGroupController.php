@@ -47,7 +47,7 @@ class BorrowerGroupController extends Controller
     {
 
         //get custom fields
-        return view('borrower.group.create', compact(''));
+        return view('borrower.group.create');
     }
 
     /**
@@ -114,7 +114,7 @@ class BorrowerGroupController extends Controller
 
     public function addBorrower(Request $request, $id)
     {
-        if(BorrowerGroupMember::where('borrower_id',$request->borrower_id)->count()>0){
+        if (BorrowerGroupMember::where('borrower_id', $request->borrower_id)->count() > 0) {
             Flash::warning(trans('general.borrower_already_added_to_group'));
             return redirect()->back();
         }

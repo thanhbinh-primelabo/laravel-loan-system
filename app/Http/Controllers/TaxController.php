@@ -34,7 +34,7 @@ class TaxController extends Controller
      */
     public function create()
     {
-        return view('tax.create', compact(''));
+        return view('tax.create');
     }
 
     /**
@@ -45,10 +45,10 @@ class TaxController extends Controller
      */
     public function store(Request $request)
     {
-        $tax=new Tax();
-        $tax->title=$request->name;
-        $tax->percentage=$request->percentage;
-        $tax->notes=$request->notes;
+        $tax = new Tax();
+        $tax->title = $request->name;
+        $tax->percentage = $request->percentage;
+        $tax->notes = $request->notes;
         $tax->save();
         Flash::success("Successfully Saved");
         return redirect('tax/data');
@@ -80,10 +80,10 @@ class TaxController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $tax=Tax::find($id);
-        $tax->title=$request->name;
-        $tax->percentage=$request->percentage;
-        $tax->notes=$request->notes;
+        $tax = Tax::find($id);
+        $tax->title = $request->name;
+        $tax->percentage = $request->percentage;
+        $tax->notes = $request->notes;
         $tax->save();
         Flash::success("Successfully Saved");
         return redirect('tax/data');

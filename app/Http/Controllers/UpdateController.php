@@ -83,13 +83,13 @@ class UpdateController extends Controller
             Flash::warning(trans('general.update_file_does_not_exist'));
             return redirect()->back();
         }
-        //return view('tax.create', compact(''));
+        //return view('tax.create');
     }
 
     public function finish()
     {
 
-        return view('update.finish', compact(''));
+        return view('update.finish');
     }
 
 
@@ -140,50 +140,70 @@ class UpdateController extends Controller
                     $permission->user_id = $user->id;
                     $permission->save();
                     //notify user
-                    Mail::raw("Default Branch permission has been assigned to you",
+                    Mail::raw(
+                        "Default Branch permission has been assigned to you",
                         function ($message) {
-                            $message->from(Setting::where('setting_key',
-                                'company_email')->first()->setting_value,
-                                Setting::where('setting_key', 'company_name')->first()->setting_value);
-                            $message->to(Setting::where('setting_key',
-                                'company_email')->first()->setting_value);
+                            $message->from(
+                                Setting::where(
+                                    'setting_key',
+                                    'company_email'
+                                )->first()->setting_value,
+                                Setting::where('setting_key', 'company_name')->first()->setting_value
+                            );
+                            $message->to(Setting::where(
+                                'setting_key',
+                                'company_email'
+                            )->first()->setting_value);
                             $headers = $message->getHeaders();
                             $message->setContentType('text/html');
                             $message->setSubject("Branch permission assigned");
-
-                        });
+                        }
+                    );
                     if (!empty(Setting::where('setting_key', 'company_email')->first())) {
-                        Mail::raw("Default Branch permission has been assigned to: " . $user->first_name . " " . $user->last_name,
+                        Mail::raw(
+                            "Default Branch permission has been assigned to: " . $user->first_name . " " . $user->last_name,
                             function ($message) {
-                                $message->from(Setting::where('setting_key',
-                                    'company_email')->first()->setting_value,
-                                    Setting::where('setting_key', 'company_name')->first()->setting_value);
-                                $message->to(Setting::where('setting_key',
-                                    'company_email')->first()->setting_value);
+                                $message->from(
+                                    Setting::where(
+                                        'setting_key',
+                                        'company_email'
+                                    )->first()->setting_value,
+                                    Setting::where('setting_key', 'company_name')->first()->setting_value
+                                );
+                                $message->to(Setting::where(
+                                    'setting_key',
+                                    'company_email'
+                                )->first()->setting_value);
                                 $headers = $message->getHeaders();
                                 $message->setContentType('text/html');
                                 $message->setSubject("Branch permission assigned");
-                            });
+                            }
+                        );
                     }
                 } else {
                     //failed to assign default user, notify admin
                     if (!empty(Setting::where('setting_key', 'company_email')->first())) {
-                        Mail::raw("Failed to assign branch permission to user",
+                        Mail::raw(
+                            "Failed to assign branch permission to user",
                             function ($message) {
-                                $message->from(Setting::where('setting_key',
-                                    'company_email')->first()->setting_value,
-                                    Setting::where('setting_key', 'company_name')->first()->setting_value);
-                                $message->to(Setting::where('setting_key',
-                                    'company_email')->first()->setting_value);
+                                $message->from(
+                                    Setting::where(
+                                        'setting_key',
+                                        'company_email'
+                                    )->first()->setting_value,
+                                    Setting::where('setting_key', 'company_name')->first()->setting_value
+                                );
+                                $message->to(Setting::where(
+                                    'setting_key',
+                                    'company_email'
+                                )->first()->setting_value);
                                 $headers = $message->getHeaders();
                                 $message->setContentType('text/html');
                                 $message->setSubject("Failed to assign branch permission");
-
-                            });
+                            }
+                        );
                     }
-
                 }
-
             }
         }
         Flash::success("Successfully fixed 1 records");
@@ -204,8 +224,10 @@ class UpdateController extends Controller
         JournalEntry::truncate();
         LoanTransaction::truncate();
         //import loan transactions and journals
-        foreach (Loan::whereIn('loans.status',
-            ['disbursed', 'closed', 'written_off', 'rescheduled'])->get() as $key) {
+        foreach (Loan::whereIn(
+            'loans.status',
+            ['disbursed', 'closed', 'written_off', 'rescheduled']
+        )->get() as $key) {
             //disbursement transaction
             $loan_transaction = new LoanTransaction();
             $loan_transaction->user_id = $key->user_id;
@@ -304,11 +326,8 @@ class UpdateController extends Controller
                         $journal->reference = $key->id;
                         $journal->save();
                     }
-
                 }
-
             }
-
         }
         Flash::success("Update in progress:Step 2");
         return redirect('update_2_0_2');
@@ -319,15 +338,17 @@ class UpdateController extends Controller
         $count = 0;
         //first empty Journal Entries table
         //import loan transactions and journals
-        foreach (Loan::whereIn('loans.status',
-            ['disbursed', 'closed', 'written_off', 'rescheduled'])->get() as $key) {
+        foreach (Loan::whereIn(
+            'loans.status',
+            ['disbursed', 'closed', 'written_off', 'rescheduled']
+        )->get() as $key) {
             //disbursement transaction
 
             $date = explode('-', $key->disbursed_date);
             if (!empty($key->loan_product)) {
                 //check for schedules
                 foreach (LoanSchedule::where('loan_id', $key->id)->get() as $schedule) {
-                    if ($schedule->fees>0) {
+                    if ($schedule->fees > 0) {
                         $loan_transaction = new LoanTransaction();
                         $loan_transaction->user_id = $key->user_id;
                         $loan_transaction->branch_id = $key->branch_id;
@@ -342,10 +363,10 @@ class UpdateController extends Controller
                         $loan_transaction->reversible = 1;
                         $loan_transaction->save();
                     }
-                    if ($schedule->penalty>0) {
+                    if ($schedule->penalty > 0) {
                         $loan_transaction = new LoanTransaction();
                         $loan_transaction->user_id = $key->user_id;
-                        $loan_transaction->branch_id =$key->branch_id;
+                        $loan_transaction->branch_id = $key->branch_id;
                         $loan_transaction->loan_id = $key->id;
                         $loan_transaction->borrower_id = $key->borrower_id;
                         $loan_transaction->transaction_type = "penalty";
@@ -360,7 +381,6 @@ class UpdateController extends Controller
                     //check for penalty
                 }
             }
-
         }
         Flash::success("Update in progress:Step 3");
         return redirect('update_2_0_3');
@@ -370,14 +390,16 @@ class UpdateController extends Controller
         //fix schedules
 
         //import loan transactions and journals
-        foreach (Loan::whereIn('loans.status',
-            ['disbursed', 'closed', 'written_off', 'rescheduled'])->get() as $key) {
+        foreach (Loan::whereIn(
+            'loans.status',
+            ['disbursed', 'closed', 'written_off', 'rescheduled']
+        )->get() as $key) {
             //disbursement transaction
 
             if (!empty($key->loan_product)) {
                 //payments
-                foreach (LoanRepayment::where('loan_id', $key->id)->orderBy('collection_date','asc')->get() as $repayment) {
-                    if ($repayment->amount>0) {
+                foreach (LoanRepayment::where('loan_id', $key->id)->orderBy('collection_date', 'asc')->get() as $repayment) {
+                    if ($repayment->amount > 0) {
                         $loan_transaction = new LoanTransaction();
                         $loan_transaction->user_id = $key->user_id;
                         $loan_transaction->branch_id = $key->branch_id;
@@ -548,10 +570,8 @@ class UpdateController extends Controller
                             }
                         }
                     }
-
                 }
             }
-
         }
         Flash::success("Successfully updated  records");
         return redirect('dashboard');

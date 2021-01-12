@@ -105,10 +105,11 @@ class CollateralController extends Controller
             } else {
                 $fname = "collateral_" . uniqid() . '.' . $request->file('photo')->guessExtension();
                 $collateral->photo = $fname;
-                $request->file('photo')->move(public_path() . '/uploads',
-                    $fname);
+                $request->file('photo')->move(
+                    public_path() . '/uploads',
+                    $fname
+                );
             }
-
         }
         $files = array();
         if (!empty($request->file('files'))) {
@@ -123,8 +124,10 @@ class CollateralController extends Controller
                 } else {
                     $fname = "collateral_" . uniqid() . '.' . $key->guessExtension();
                     $files[$count] = $fname;
-                    $key->move(public_path() . '/uploads',
-                        $fname);
+                    $key->move(
+                        public_path() . '/uploads',
+                        $fname
+                    );
                 }
                 $count++;
             }
@@ -213,10 +216,11 @@ class CollateralController extends Controller
             } else {
                 $fname = "collateral_" . uniqid() . '.' . $request->file('photo')->guessExtension();
                 $collateral->photo = $fname;
-                $request->file('photo')->move(public_path() . '/uploads',
-                    $fname);
+                $request->file('photo')->move(
+                    public_path() . '/uploads',
+                    $fname
+                );
             }
-
         }
         $files = unserialize($collateral->files);
         $count = count($files);
@@ -232,21 +236,25 @@ class CollateralController extends Controller
                 } else {
                     $fname = "collateral_" . uniqid() . '.' . $key->guessExtension();
                     $files[$count] = $fname;
-                    $key->move(public_path() . '/uploads',
-                        $fname);
+                    $key->move(
+                        public_path() . '/uploads',
+                        $fname
+                    );
                 }
-
             }
         }
         $collateral->files = serialize($files);
         $collateral->save();
         $custom_fields = CustomField::where('category', 'collateral')->get();
         foreach ($custom_fields as $key) {
-            if (!empty(CustomFieldMeta::where('custom_field_id', $key->id)->where('parent_id', $id)->where('category',
-                'collateral')->first())
-            ) {
-                $custom_field = CustomFieldMeta::where('custom_field_id', $key->id)->where('parent_id',
-                    $id)->where('category', 'collateral')->first();
+            if (!empty(CustomFieldMeta::where('custom_field_id', $key->id)->where('parent_id', $id)->where(
+                'category',
+                'collateral'
+            )->first())) {
+                $custom_field = CustomFieldMeta::where('custom_field_id', $key->id)->where(
+                    'parent_id',
+                    $id
+                )->where('category', 'collateral')->first();
             } else {
                 $custom_field = new CustomFieldMeta();
             }
@@ -295,8 +303,6 @@ class CollateralController extends Controller
         $files = array_except($files, [$request->id]);
         $collateral->files = serialize($files);
         $collateral->save();
-
-
     }
 
     //expense type
@@ -315,7 +321,7 @@ class CollateralController extends Controller
     public function createType()
     {
 
-        return view('collateral.type.create', compact(''));
+        return view('collateral.type.create');
     }
 
     /**

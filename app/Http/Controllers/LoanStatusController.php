@@ -45,9 +45,9 @@ class LoanStatusController extends Controller
      */
     public function create()
     {
-      
+
         //get custom fields
-        return view('loan_status.create', compact(''));
+        return view('loan_status.create');
     }
 
     /**
@@ -106,5 +106,4 @@ class LoanStatusController extends Controller
         Flash::success(trans('general.successfully_deleted'));
         return redirect('loan/loan_status/data');
     }
-
 }

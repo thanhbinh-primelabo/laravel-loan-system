@@ -43,9 +43,9 @@ class LoanDisbursedByController extends Controller
      */
     public function create()
     {
-      
+
         //get custom fields
-        return view('loan_disbursed_by.create', compact(''));
+        return view('loan_disbursed_by.create');
     }
 
     /**
@@ -104,5 +104,4 @@ class LoanDisbursedByController extends Controller
         Flash::success(trans('general.successfully_deleted'));
         return redirect('loan/loan_disbursed_by/data');
     }
-
 }

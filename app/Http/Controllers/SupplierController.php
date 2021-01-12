@@ -33,7 +33,7 @@ class SupplierController extends Controller
     public function index()
     {
         $data = Supplier::all();
-       
+
         return view('supplier.data', compact('data'));
     }
 
@@ -45,8 +45,8 @@ class SupplierController extends Controller
     public function create()
     {
 
-      
-        return view('supplier.create', compact(''));
+
+        return view('supplier.create');
     }
 
     /**
@@ -119,5 +119,4 @@ class SupplierController extends Controller
         Flash::success(trans('general.successfully_deleted'));
         return redirect('supplier/data');
     }
-
 }

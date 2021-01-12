@@ -42,7 +42,7 @@ class SmsGatewayController extends Controller
             Flash::warning("Permission Denied");
             return redirect('/');
         }
-        return view('sms_gateway.create', compact(''));
+        return view('sms_gateway.create');
     }
 
     /**

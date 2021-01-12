@@ -47,7 +47,7 @@ class CustomFieldController extends Controller
             Flash::warning("Permission Denied");
             return redirect('/');
         }
-        return view('custom_field.create', compact(''));
+        return view('custom_field.create');
     }
 
     /**
@@ -129,5 +129,4 @@ class CustomFieldController extends Controller
         Flash::success(trans('general.successfully_deleted'));
         return redirect('custom_field/data');
     }
-
 }

@@ -43,16 +43,17 @@ class BranchController extends Controller
      */
     public function create()
     {
-
         //get custom fields
-        return view('branch.create', compact(''));
+        return view('branch.create');
     }
 
     public function change()
     {
         $branches = array();
-        foreach (BranchUser::where('user_id', Sentinel::getUser()->id)->orderBy('created_at',
-            'desc')->get() as $key) {
+        foreach (BranchUser::where('user_id', Sentinel::getUser()->id)->orderBy(
+            'created_at',
+            'desc'
+        )->get() as $key) {
             if (!empty($key->branch)) {
                 $branches[$key->branch_id] = $key->branch->name;
             }
@@ -155,5 +156,4 @@ class BranchController extends Controller
         Flash::success(trans('general.successfully_saved'));
         return redirect()->back();
     }
-
 }

@@ -50,7 +50,7 @@ class LoanFeeController extends Controller
     public function create()
     {
 
-        return view('loan_fee.create', compact(''));
+        return view('loan_fee.create');
     }
 
     /**
@@ -72,7 +72,6 @@ class LoanFeeController extends Controller
 
     public function show($loan_fee)
     {
-
     }
 
 
@@ -111,5 +110,4 @@ class LoanFeeController extends Controller
         Flash::success(trans('general.successfully_deleted'));
         return redirect('loan/loan_fee/data');
     }
-
 }

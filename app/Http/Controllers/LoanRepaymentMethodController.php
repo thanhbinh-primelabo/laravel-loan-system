@@ -45,9 +45,9 @@ class LoanRepaymentMethodController extends Controller
      */
     public function create()
     {
-      
+
         //get custom fields
-        return view('loan_repayment_method.create', compact(''));
+        return view('loan_repayment_method.create');
     }
 
     /**
@@ -106,5 +106,4 @@ class LoanRepaymentMethodController extends Controller
         Flash::success(trans('general.successfully_deleted'));
         return redirect('loan/loan_repayment_method/data');
     }
-
 }

@@ -43,7 +43,7 @@ class WarehouseController extends Controller
             Flash::warning("Permission Denied");
             return redirect('/');
         }
-        return view('warehouse.create', compact(''));
+        return view('warehouse.create');
     }
 
     /**

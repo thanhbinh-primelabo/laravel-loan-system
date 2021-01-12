@@ -19,7 +19,7 @@ class InstallController extends Controller
         Artisan::call('config:clear');
         Artisan::call('key:generate');
         Artisan::call('view:clear');
-        return view('install.start', compact(''));
+        return view('install.start');
     }
 
     public function requirements()
@@ -103,9 +103,8 @@ class InstallController extends Controller
                 copy(base_path('.env.example'), base_path('.env'));
                 return redirect()->back()->with(["error" => trans('general.install_database_failed')]);
             }
-
         }
-        return view('install.database', compact(''));
+        return view('install.database');
     }
 
     public function installation(Request $request)
@@ -120,7 +119,6 @@ class InstallController extends Controller
                 Artisan::call('db:seed', ['--force' => true]);
                 file_put_contents(storage_path('installed'), 'Welcome to ULM');
                 return redirect('install/complete');
-
             } catch (\Exception $e) {
                 Log::error($e->getMessage());
                 Log::error($e->getTraceAsString());
@@ -128,7 +126,7 @@ class InstallController extends Controller
                 return redirect()->back();
             }
         }
-        return view('install.installation', compact(''));
+        return view('install.installation');
     }
 
     public function complete()
@@ -137,6 +135,6 @@ class InstallController extends Controller
         Artisan::call('cache:clear');
         Artisan::call('config:clear');
 
-        return view('install.complete', compact(''));
+        return view('install.complete');
     }
 }

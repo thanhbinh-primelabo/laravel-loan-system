@@ -67,7 +67,7 @@ class ProductController extends Controller
         $tree = GeneralHelper::buildTree(ProductCategory::all());
         //get custom fields
         $custom_fields = CustomField::where('category', 'products')->get();
-        return view('product.create', compact('categories', 'custom_fields', 'branches', 'tree'));
+        return view('product.create', compact('categories', 'custom_fields', 'tree'));
     }
 
     /**

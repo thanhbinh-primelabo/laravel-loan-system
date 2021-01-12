@@ -44,7 +44,7 @@ class BankAccountController extends Controller
             Flash::warning("Permission Denied");
             return redirect('/');
         }
-        return view('bank.create', compact(''));
+        return view('bank.create');
     }
 
     /**

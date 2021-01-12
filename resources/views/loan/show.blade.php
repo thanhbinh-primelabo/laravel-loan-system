@@ -69,7 +69,7 @@
                                 <label class="control-label col-md-4"><strong>{{trans_choice('general.age',1)}}
                                         :</strong></label>
                                 <div class="col-md-8" style="padding-top: 9px;">
-                                    <span>{{date("Y-m-d")-$loan->borrower->dob}} {{trans_choice('general.year',2)}}</span>
+                                    <span>{{date("Y-m-d").'-'.$loan->borrower->dob}} {{trans_choice('general.year',2)}}</span>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -555,9 +555,9 @@
                                             $overdue = 0;
                                             
                                             if ($payments > 0) {
-                                                if ($payments > $due) {
-                                                    $paid = $due;
-                                                    $payments = $payments - $due;
+                                                if ($payments > $total_due) {
+                                                    $paid = $total_due;
+                                                    $payments = $payments - $total_due;
                                                     //find the corresponding paid by date
                                                     $p_paid = 0;
                                                     foreach (\App\Models\LoanTransaction::where('loan_id',
@@ -593,7 +593,7 @@
                                                 }
                                                 $next_payment[$schedule->due_date] = (($schedule->principal + $schedule->interest + $schedule->fees + $schedule->penalty- $schedule->interest_waived));
                                             }
-                                            $outstanding = $due - $paid;
+                                            $outstanding = $total_due - $paid;
                                             //check if the schedule has been paid in time
                                             
 

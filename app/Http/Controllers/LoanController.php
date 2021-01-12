@@ -135,7 +135,7 @@ class LoanController extends Controller
         $custom_fields = CustomField::where('category', 'loans')->get();
         return view('loan.create',
             compact('borrowers', 'loan_disbursed_by', 'loan_products', 'loan_product', 'borrower_id', 'custom_fields',
-                'charges', 'loan_overdue_penalties', 'users'));
+                'charges', 'users'));
     }
 
     public function reschedule(Request $request, $id)
@@ -381,7 +381,7 @@ class LoanController extends Controller
         $custom_fields = CustomFieldMeta::where('category', 'loans')->where('parent_id', $loan->id)->get();
         // echo $schedules;exit;
         return view('loan.show',
-            compact('loan', 'schedules', 'payments', 'custom_fields', 'loan_disbursed_by', 'guarantors'));
+            compact('loan', 'schedules', 'custom_fields', 'loan_disbursed_by', 'guarantors'));
     }
 
     public function approve(Request $request, $id)

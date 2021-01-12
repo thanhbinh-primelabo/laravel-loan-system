@@ -45,7 +45,7 @@ class ChargeController extends Controller
     public function create()
     {
 
-        return view('charge.create', compact(''));
+        return view('charge.create');
     }
 
     /**
@@ -80,7 +80,6 @@ class ChargeController extends Controller
 
     public function show($charge)
     {
-
     }
 
 
@@ -131,5 +130,4 @@ class ChargeController extends Controller
         Flash::success(trans('general.successfully_deleted'));
         return redirect('charge/data');
     }
-
 }

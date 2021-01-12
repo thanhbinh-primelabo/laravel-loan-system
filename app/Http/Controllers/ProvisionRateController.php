@@ -36,7 +36,7 @@ class ProvisionRateController extends Controller
      */
     public function create()
     {
-        return view('provision.create', compact(''));
+        return view('provision.create');
     }
 
     /**
@@ -51,10 +51,10 @@ class ProvisionRateController extends Controller
             Flash::warning("Permission Denied");
             return redirect('/');
         }
-        $provision=new ProvisionRate();
-        $provision->title=$request->name;
-        $provision->percentage=$request->percentage;
-        $provision->notes=$request->notes;
+        $provision = new ProvisionRate();
+        $provision->title = $request->name;
+        $provision->percentage = $request->percentage;
+        $provision->notes = $request->notes;
         $provision->save();
         Flash::success("Successfully Saved");
         return redirect('loan/provision/data');
@@ -94,9 +94,9 @@ class ProvisionRateController extends Controller
             Flash::warning("Permission Denied");
             return redirect('/');
         }
-        $provision=ProvisionRate::find($id);
-        $provision->rate=$request->rate;
-        $provision->notes=$request->notes;
+        $provision = ProvisionRate::find($id);
+        $provision->rate = $request->rate;
+        $provision->notes = $request->notes;
         $provision->save();
         Flash::success("Successfully Saved");
         return redirect('loan/provision/data');
